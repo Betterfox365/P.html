@@ -1,24 +1,526 @@
-# Compiled class file
-*.class
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consultores Golla</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #ffffff, #d0f0ff, #b2f7c2);
+      color: #333;
+    }
+    /* Barra superior horizontal fija */
+    .barra-superior {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #004080;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      z-index: 1000;
+      gap: 10px;
+    }
+    .barra-superior button {
+      background-color: #00c292;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .barra-superior button:hover {
+      background-color: #009f79;
+    }
+    main {
+      margin-top: 70px;
+      padding: 2rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 3rem 1rem 2rem;
+      text-align: center;
+      margin-top: 0;
+      border-radius: 8px;
+    }
+    section {
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #0077cc;
+      text-align: center;
+      margin-top: 0;
+    }
+    #vinculos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+    }
+    #vinculos a {
+      text-align: center;
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: bold;
+      width: 150px;
+    }
+    #vinculos img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      background: white;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    #vinculos img:hover {
+      transform: scale(1.08);
+    }
+    #contacto {
+      background-color: #e6f7ff;
+      padding: 2rem;
+      text-align: center;
+      border-top: 2px solid #0077cc;
+      border-radius: 8px;
+    }
+    footer {
+      background-color: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      border-radius: 8px;
+    }
+    /* Botones flotantes */
+    .floating-btn {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      z-index: 1100;
+      background-color: #25D366; /* Verde WhatsApp */
+      margin-bottom: 10px;
+    }
+    .floating-btn:hover {
+      transform: scale(1.1);
+    }
+    .facebook-btn {
+      background-color: #1877F2 !important;
+      top: 80px !important;
+    }
+    .floating-btn img {
+      width: 32px;
+      height: 32px;
+    }
+    /* Lista servicios */
+    #servicios ul {
+      max-width: 600px;
+      margin: 1rem auto 0;
+      padding-left: 20px;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #005080;
+    }
+    #servicios ul li {
+      margin-bottom: 0.8rem;
+    }
+    /* Formularios login y registro */
+    form {
+      max-width: 320px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button.submit-btn {
+      background-color: #00c292;
+      border: none;
+      padding: 0.7rem;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button.submit-btn:hover {
+      background-color: #009f79;
+    }
+    .mensaje {
+      text-align: center;
+      font-weight: bold;
+      margin-top: -0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .mensaje.error {
+      color: red;
+    }
+    .mensaje.success {
+      color: green;
+    }
+    /* Contenedor login y register */
+    #login, #register {
+      max-width: 360px;
+      margin: 2rem auto;
+      padding: 1rem;
+      border: 1px solid #0077cc;
+      border-radius: 8px;
+      background: #f0f9ff;
+    }
+    #configuracion {
+      max-width: 320px;
+      margin: 2rem auto;
+      text-align: center;
+    }
+    #configuracion button {
+      background-color: #e74c3c;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #configuracion button:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
 
-# Log file
-*.log
+  <div class="barra-superior">
+    <button onclick="scrollToSection('inicio')">Inicio</button>
+    <button onclick="scrollToSection('productos')">Productos</button>
+    <button onclick="scrollToSection('servicios')">Servicios</button>
+    <button onclick="scrollToSection('informacion')">Quiénes somos</button>
+    <button onclick="window.open('https://maps.app.goo.gl/6YRepgnSP7ZszP978', '_blank')">Ubicación</button>
+    <button onclick="scrollToSection('conocenos')">Conócenos</button>
+    <button id="btnLoginMenu" onclick="mostrarLogin()">Inicio de sesión</button>
+    <button id="btnLogoutMenu" style="display:none;" onclick="cerrarSesion()">Cerrar sesión</button>
+  </div>
 
-# BlueJ files
-*.ctxt
+  <main>
+    <section id="inicio">
+      <header>
+        <h1>Consultores Golla</h1>
+        <p>Soluciones tecnológicas para tu empresa</p>
+      </header>
+    </section>
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+    <section id="productos">
+      <h2>Productos</h2>
+      <p>Aquí puedes agregar tu catálogo de productos o una galería estática.</p>
+    </section>
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+    <section id="servicios">
+      <h2>Servicios que ofrecemos</h2>
+      <ul>
+        <li>Instalación de cámaras de seguridad</li>
+        <li>Instalación de impresoras</li>
+        <li>Instalación de antenas y repetidores de internet</li>
+        <li>Cableado estructurado</li>
+        <li>Controles de acceso</li>
+        <li>Ayuda, asistencia y asesoría en software</li>
+      </ul>
+    </section>
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+    <section id="informacion">
+      <h2>¿Quiénes somos?</h2>
+      <p>Consultores GOLLA SA de CV es una empresa especializada en la asesoría y venta de equipo de cómputo, sistemas administrativos, punto de venta y biométricos para control de asistencia. Además, ofrecemos soporte técnico en el uso de sistemas y somos especialistas en productos Microsoft, National Soft y Contpaq. Nuestro objetivo es brindar soluciones eficientes y de calidad a nuestros clientes, ayudándoles a optimizar sus procesos y mejorar su productividad.</p>
+    </section>
+
+    <section id="conocenos">
+      <h2>Conócenos</h2>
+      <p>Somos un equipo dedicado a brindar las mejores soluciones tecnológicas a nuestros clientes.</p>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="login" style="display:none;">
+      <h2>Inicio de sesión</h2>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Usuario" required />
+        <input type="password" id="password" placeholder="Contraseña" required />
+        <button type="submit" class="submit-btn">Entrar</button>
+      </form>
+      <p class="mensaje" id="loginMessage"></p>
+      <p style="text-align:center;">
+        ¿No tienes cuenta? <a href="#" onclick="mostrarRegistro()">Regístrate aquí</a>
+      </p>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="register" style="display:none;">
+      <h2>Registro de usuario</h2>
+      <form id="registerForm">
+        <input type="text" id="registerUser" placeholder="Usuario" required />
+        <input type="email" id="registerEmail" placeholder="Correo electrónico" required />
+        <input type="password" id="registerPass" placeholder="Contraseña" required />
+        <input type="password" id="registerConfirmPass" placeholder="Confirmar contraseña" required />
+        <button type="submit" class="submit-btn">Registrar</button>
+      </form>
+      <p class="mensaje" id="registerMessage"></p>
+      <p style="text-align:center;">
+        ¿Ya tienes cuenta? <a href="#" onclick="mostrarLogin()">Inicia sesión aquí</a>
+      </p>
+    </section>
+
+    <!-- Configuración para cerrar sesión -->
+    <section id="configuracion" style="display:none;">
+      <h2>Configuración de usuario</h2>
+      <p id="usuarioActivo" style="font-weight:bold;"></p>
+      <button onclick="cerrarSesion()">Cerrar sesión</button>
+    </section>
+
+    <section id="vinculos">
+      <h2>Accesos Directos a Marcas</h2>
+      <a href="https://www.hp.com/mx-es/home.html" target="_blank" rel="noopener">
+        <img src="https://purepng.com/public/uploads/large/purepng.com-hp-logologobrand-logoiconslogos-2515199390657l82v.png" alt="HP" />
+        HP
+      </a>
+      <a href="https://www.ghia.com.mx" target="_blank" rel="noopener">
+        <img src="https://seeklogo.com/images/G/ghia-logo-ACBC2C3F3A-seeklogo.com.png" alt="GHIA" />
+        GHIA
+      </a>
+      <a href="https://www.softrestaurant.com.mx" target="_blank" rel="noopener">
+        <img src="https://softmex.me/817-medium_default/soft-restaurant-11.jpg" alt="SoftRestaurant" />
+        SoftRestaurant
+      </a>
+      <a href="https://www.hikvision.com/en/" target="_blank" rel="noopener">
+        <img src="http://logos-download.com/wp-content/uploads/2016/06/Hikvision_logo.png" alt="Hikvision" />
+        Hikvision
+      </a>
+      <a href="https://www.tp-link.com/mx/" target="_blank" rel="noopener">
+        <img src="https://logospng.org/download/tp-link/tp-link-4096.png" alt="TP-Link" />
+        TP-Link
+      </a>
+      <a href="https://www.dell.com/es-mx" target="_blank" rel="noopener">
+        <img src="http://1000logos.net/wp-content/uploads/2017/07/Dell-Logo.png" alt="Dell" />
+        Dell
+      </a>
+      <a href="https://www.dahuasecurity.com/mx" target="_blank" rel="noopener">
+        <img src="https://photos.prnasia.com/media_files/static/2014/02/201402181529_f5bd64a6.png" alt="Dahua" />
+        Dahua
+      </a>
+      <a href="https://www.steren.com.mx" target="_blank" rel="noopener">
+        <img src="https://greatplacetoworkcarca.com/wp-content/uploads/2022/10/Logo-Steren.png" alt="Steren" />
+        Steren
+      </a>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p>¿Tienes dudas o quieres una cotización?</p>
+      <p><strong>Teléfono:</strong> <a href="tel:3326367744">3326 367 744</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Consultores Golla</p>
+  </footer>
+
+  <!-- Botón flotante WhatsApp -->
+  <a href="https://wa.me/523326367744" target="_blank" rel="noopener" class="floating-btn whatsapp-btn" aria-label="WhatsApp" title="WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+  </a>
+
+  <!-- Botón flotante Facebook -->
+  <a href="https://www.facebook.com/profile.php?id=61577213975843" target="_blank" rel="noopener" class="floating-btn facebook-btn" aria-label="Facebook" title="Facebook">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_(2019).png" alt="Facebook" />
+  </a>
+
+<script>
+  // Scroll suave a secciones
+  function scrollToSection(id) {
+    const section = document.getElementById(id);
+    if(section) {
+      section.scrollIntoView({behavior: 'smooth'});
+    }
+  }
+
+  // Mostrar login o registro
+  const loginSection = document.getElementById('login');
+  const registerSection = document.getElementById('register');
+  const configuracionSection = document.getElementById('configuracion');
+  const loginMessage = document.getElementById('loginMessage');
+  const registerMessage = document.getElementById('registerMessage');
+  const btnLoginMenu = document.getElementById('btnLoginMenu');
+  const btnLogoutMenu = document.getElementById('btnLogoutMenu');
+  const usuarioActivoText = document.getElementById('usuarioActivo');
+
+  function mostrarLogin() {
+    loginMessage.textContent = '';
+    registerMessage.textContent = '';
+    registerSection.style.display = 'none';
+    configuracionSection.style.display = 'none';
+    loginSection.style.display = 'block';
+  }
+  function mostrarRegistro() {
+    loginMessage.textContent = '';
+    registerMessage.textContent = '';
+    loginSection.style.display = 'none';
+    configuracionSection.style.display = 'none';
+    registerSection.style.display = 'block';
+  }
+  function mostrarConfiguracion() {
+    loginSection.style.display = 'none';
+    registerSection.style.display = 'none';
+    configuracionSection.style.display = 'block';
+    const usuario = localStorage.getItem('usuario');
+    usuarioActivoText.textContent = `Sesión iniciada como: ${usuario}`;
+  }
+
+  // Manejo usuarios en localStorage
+  function cargarUsuarios() {
+    return JSON.parse(localStorage.getItem('usuarios')) || {};
+  }
+  function guardarUsuarios(usuarios) {
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+  }
+
+  // LOGIN
+  const loginForm = document.getElementById('loginForm');
+  loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value;
+
+    const usuarios = cargarUsuarios();
+
+    if(!usuarios[user] || usuarios[user].password !== pass) {
+      loginMessage.classList.add('error');
+      loginMessage.classList.remove('success');
+      loginMessage.textContent = 'Usuario o contraseña incorrectos';
+      return;
+    }
+
+    // Guardar sesión en localStorage
+    localStorage.setItem('usuario', user);
+    loginMessage.classList.remove('error');
+    loginMessage.classList.add('success');
+    loginMessage.textContent = 'Inicio de sesión exitoso';
+
+    // Mostrar configuración y ocultar login
+    btnLoginMenu.style.display = 'none';
+    btnLogoutMenu.style.display = 'inline-block';
+    mostrarConfiguracion();
+  });
+
+  // REGISTRO
+  const registerForm = document.getElementById('registerForm');
+  registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const user = document.getElementById('registerUser').value.trim();
+    const pass = document.getElementById('registerPass').value;
+    const confirmPass = document.getElementById('registerConfirmPass').value;
+    const email = document.getElementById('registerEmail').value.trim();
+
+    // Validar email básico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      registerMessage.classList.remove('success');
+      registerMessage.classList.add('error');
+      registerMessage.textContent = 'Por favor, ingresa un correo electrónico válido';
+      return;
+    }
+    if (pass !== confirmPass) {
+      registerMessage.classList.remove('success');
+      registerMessage.classList.add('error');
+      registerMessage.textContent = 'Las contraseñas no coinciden';
+      return;
+    }
+    if (user.length < 3) {
+      registerMessage.classList.remove('success');
+      registerMessage.classList.add('error');
+      registerMessage.textContent = 'El usuario debe tener al menos 3 caracteres';
+      return;
+    }
+    if (pass.length < 6) {
+      registerMessage.classList.remove('success');
+      registerMessage.classList.add('error');
+      registerMessage.textContent = 'La contraseña debe tener al menos 6 caracteres';
+      return;
+    }
+
+    const usuarios = cargarUsuarios();
+
+    if (usuarios[user]) {
+      registerMessage.classList.remove('success');
+      registerMessage.classList.add('error');
+      registerMessage.textContent = 'El usuario ya existe';
+      return;
+    }
+
+    usuarios[user] = {password: pass, email: email};
+    guardarUsuarios(usuarios);
+
+    registerMessage.classList.remove('error');
+    registerMessage.classList.add('success');
+    registerMessage.textContent = 'Registro exitoso, ahora inicia sesión';
+
+    // Limpiar formulario
+    registerForm.reset();
+  });
+
+  // Verificar si hay usuario activo
+  window.onload = () => {
+    const usuario = localStorage.getItem('usuario');
+    if(usuario) {
+      btnLoginMenu.style.display = 'none';
+      btnLogoutMenu.style.display = 'inline-block';
+      mostrarConfiguracion();
+    } else {
+      btnLoginMenu.style.display = 'inline-block';
+      btnLogoutMenu.style.display = 'none';
+      loginSection.style.display = 'none';
+      registerSection.style.display = 'none';
+      configuracionSection.style.display = 'none';
+    }
+  }
+
+  // Cerrar sesión
+  function cerrarSesion() {
+    localStorage.removeItem('usuario');
+    btnLoginMenu.style.display = 'inline-block';
+    btnLogoutMenu.style.display = 'none';
+    configuracionSection.style.display = 'none';
+    alert('Has cerrado sesión');
+  }
+</script>
+
+</body>
+</html>
